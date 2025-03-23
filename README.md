@@ -1,5 +1,4 @@
 # Portable AI Server with Ollama - RAG Enhanced
-***Developed by: PHILIP SIMON DEROCK P***
 
 ## Overview
 This project transforms an **old laptop** into a **dual-boot AI server** running Ubuntu Server and Windows. The server is fully **wireless**, allowing for **AI interaction using Ollama** and implementing **Database + Retrieval-Augmented Generation (RAG)** for enhanced AI responses.
@@ -97,6 +96,11 @@ SSH enables managing the server without physical access:
    ssh user@server-ip
    ```
 
+**Security Best Practices:**
+- **Use SSH keys** instead of passwords.
+- **Disable root login** in `/etc/ssh/sshd_config` (`PermitRootLogin no`).
+- **Change default SSH port** to enhance security.
+
 ---
 
 ## 3️⃣ Deploying Ollama AI on the Server
@@ -115,7 +119,8 @@ SSH enables managing the server without physical access:
 ### Running Ollama AI Server
 To make Ollama accessible over the network:
 ```sh
-OLLAMA_HOST=0.0.0.0 ollama serve
+export OLLAMA_HOST=0.0.0.0
+ollama serve
 ```
 
 ---
@@ -150,14 +155,15 @@ OLLAMA_HOST=0.0.0.0 ollama serve
    ```
 2. **Generate and Store Embeddings**:
    ```python
+   import os
    from langchain_ollama import OllamaEmbeddings
    from mysql.connector import connect
    
-   embeddings = OllamaEmbeddings(model="deepseek-r1:1.5b")
-   
-   conn = connect(host='localhost', user='root', password='yourpassword', database='ai_chat_db')
+   db_password = os.getenv("MYSQL_PASSWORD")  # Use environment variable
+   conn = connect(host='localhost', user='root', password=db_password, database='ai_chat_db')
    cursor = conn.cursor()
    
+   embeddings = OllamaEmbeddings(model="deepseek-r1:1.5b")
    user_input = "What is diabetes?"
    vector = embeddings.embed_text(user_input)
    
@@ -168,7 +174,6 @@ OLLAMA_HOST=0.0.0.0 ollama serve
 ### Implementing Cosine Similarity for Query Matching
 ```python
 from sklearn.metrics.pairwise import cosine_similarity
-
 similarity_score = cosine_similarity(user_embedding, stored_embeddings)
 ```
 
@@ -185,7 +190,7 @@ similarity_score = cosine_similarity(user_embedding, stored_embeddings)
    user_input = st.text_input("Ask me anything:")
    
    if st.button("Submit"):
-       conn = mysql.connector.connect(host='localhost', user='root', password='yourpassword', database='ai_chat_db')
+       conn = mysql.connector.connect(host='localhost', user='root', password=os.getenv("MYSQL_PASSWORD"), database='ai_chat_db')
        cursor = conn.cursor()
        cursor.execute("SELECT ai_response FROM chat_history WHERE user_query=%s", (user_input,))
        result = cursor.fetchone()
