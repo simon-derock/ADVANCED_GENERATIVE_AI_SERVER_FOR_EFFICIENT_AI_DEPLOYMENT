@@ -116,7 +116,13 @@ SSH enables managing the server without physical access:
 ### Installing Required Libraries
 Run the following command to install all required dependencies:
 ```sh
-pip install streamlit mysql-connector-python numpy langchain_ollama langchain_core ast sklearn
+python3 -m pip install streamlit
+python3 -m pip install mysql-connector-python
+python3 -m pip install numpy
+python3 -m pip install langchain_ollama
+python3 -m pip install langchain_core
+python3 -m pip install scikit-learn
+
 ```
 
 ---
