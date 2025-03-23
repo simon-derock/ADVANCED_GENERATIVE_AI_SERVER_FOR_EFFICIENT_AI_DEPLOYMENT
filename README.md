@@ -1,6 +1,6 @@
 # Portable AI Server with Ollama - RAG Enhanced
 
-**Developed by: PHILIP SIMON DEROCK P**
+***Developed by: PHILIP SIMON DEROCK P***
 
 ## Overview
 This project transforms an **old laptop** into a **dual-boot AI server** running Ubuntu Server and Windows. The server is fully **wireless**, allowing for **AI interaction using Ollama** and implementing **Database + Retrieval-Augmented Generation (RAG)** for enhanced AI responses.
