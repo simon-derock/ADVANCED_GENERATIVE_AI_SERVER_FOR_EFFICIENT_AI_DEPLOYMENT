@@ -1,5 +1,7 @@
 # Portable AI Server with Ollama - RAG Enhanced
-***Developed by: PHILIP SIMON DEROCK P***
+
+**Developed by: PHILIP SIMON DEROCK P**
+
 ## Overview
 This project transforms an **old laptop** into a **dual-boot AI server** running Ubuntu Server and Windows. The server is fully **wireless**, allowing for **AI interaction using Ollama** and implementing **Database + Retrieval-Augmented Generation (RAG)** for enhanced AI responses.
 
@@ -96,11 +98,6 @@ SSH enables managing the server without physical access:
    ssh user@server-ip
    ```
 
-**Security Best Practices:**
-- **Use SSH keys** instead of passwords.
-- **Disable root login** in `/etc/ssh/sshd_config` (`PermitRootLogin no`).
-- **Change default SSH port** to enhance security.
-
 ---
 
 ## 3️⃣ Deploying Ollama AI on the Server
@@ -114,13 +111,17 @@ SSH enables managing the server without physical access:
    ```sh
    ollama pull deepseek-r1:1.5b
    ollama pull tinyllama:latest
+   ollama pull lucianotonet/llamaclaude:latest
+   ollama pull incept5/IIama3.I—claude:latest
+   ollama pull granite3—dense:latest
+   ollama pull llama2—uncensored:latest
+   ollama pull deepseek—rl:1.5b
    ```
 
 ### Running Ollama AI Server
 To make Ollama accessible over the network:
 ```sh
-export OLLAMA_HOST=0.0.0.0
-ollama serve
+OLLAMA_HOST=0.0.0.0 ollama serve
 ```
 
 ---
@@ -139,43 +140,24 @@ ollama serve
 3. **Create a Database for Chat Storage**:
    ```sql
    CREATE DATABASE ai_chat_db;
+   ```
+4. **Create Tables**:
+   ```sql
    USE ai_chat_db;
-   CREATE TABLE chat_history (
+   CREATE TABLE c_tbl (
        id INT AUTO_INCREMENT PRIMARY KEY,
        user_query TEXT,
        ai_response TEXT,
        timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
    );
+   CREATE TABLE conversations (
+       id INT AUTO_INCREMENT PRIMARY KEY,
+       session_id VARCHAR(255),
+       user_message TEXT,
+       bot_response TEXT,
+       created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+   );
    ```
-
-### Using OllamaEmbeddings for RAG
-1. **Install Required Libraries**:
-   ```sh
-   pip install langchain_ollama mysql-connector-python sklearn
-   ```
-2. **Generate and Store Embeddings**:
-   ```python
-   import os
-   from langchain_ollama import OllamaEmbeddings
-   from mysql.connector import connect
-   
-   db_password = os.getenv("MYSQL_PASSWORD")  # Use environment variable
-   conn = connect(host='localhost', user='root', password=db_password, database='ai_chat_db')
-   cursor = conn.cursor()
-   
-   embeddings = OllamaEmbeddings(model="deepseek-r1:1.5b")
-   user_input = "What is diabetes?"
-   vector = embeddings.embed_text(user_input)
-   
-   cursor.execute("INSERT INTO chat_history (user_query, ai_response) VALUES (%s, %s)", (user_input, str(vector)))
-   conn.commit()
-   ```
-
-### Implementing Cosine Similarity for Query Matching
-```python
-from sklearn.metrics.pairwise import cosine_similarity
-similarity_score = cosine_similarity(user_embedding, stored_embeddings)
-```
 
 ---
 
@@ -185,14 +167,14 @@ similarity_score = cosine_similarity(user_embedding, stored_embeddings)
    ```python
    import streamlit as st
    import mysql.connector
-   
+
    st.title("Portable AI Server - RAG Enhanced")
    user_input = st.text_input("Ask me anything:")
-   
+
    if st.button("Submit"):
-       conn = mysql.connector.connect(host='localhost', user='root', password=os.getenv("MYSQL_PASSWORD"), database='ai_chat_db')
+       conn = mysql.connector.connect(host='localhost', user='root', password='yourpassword', database='ai_chat_db')
        cursor = conn.cursor()
-       cursor.execute("SELECT ai_response FROM chat_history WHERE user_query=%s", (user_input,))
+       cursor.execute("SELECT ai_response FROM c_tbl WHERE user_query=%s", (user_input,))
        result = cursor.fetchone()
        st.write(result[0] if result else "No data found.")
    ```
@@ -207,3 +189,4 @@ similarity_score = cosine_similarity(user_embedding, stored_embeddings)
 This project successfully transforms an **old laptop** into a **fully wireless AI server** that supports **retrieval-augmented generation (RAG)** and provides a **database-backed chatbot** using **MySQL, Ollama AI, and Streamlit**.
 
 ### ⭐ Star this repo if you found it useful!
+
