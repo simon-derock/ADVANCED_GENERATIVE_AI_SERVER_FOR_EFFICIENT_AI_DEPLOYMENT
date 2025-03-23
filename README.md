@@ -136,13 +136,19 @@ python3 -m pip install scikit-learn
    ```
 2. **Pull AI Models**:
    ```sh
-   ollama pull deepseek-r1:1.5b
-   ollama pull tinyllama:latest
-   ollama pull lucianotonet/llamaclaude:latest
-   ollama pull incept5/IIama3-I-claude:latest
    ollama pull granite3-dense:latest
-   ollama pull llama2-uncensored:latest
-   ollama pull deepseek-rl:1.5b
+   ollama pull dolphincoder:latest
+   ollama pull tinyllama:latest
+   ollama pull wizard-vicuna-uncensored:latest
+   ollama pull 1lama2-uncensored:latest
+   ollama pull gemma:2b
+   ollama pull qwen:latest
+   ollama pull mistral:latest
+   ollama pull 1lama3:latest
+   ollama pull nomic-embed-text:latest
+   ollama pull deepseek-r1:7b
+   ollama pull deepseek-r1:1.5b
+
    ```
 
 ### Running Ollama AI Server
