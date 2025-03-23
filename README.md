@@ -719,7 +719,7 @@ code, pre {
 
 ### Running the App
 ```sh
-streamlit run four.py
+streamlit run app.py
 ```
 
 ---
