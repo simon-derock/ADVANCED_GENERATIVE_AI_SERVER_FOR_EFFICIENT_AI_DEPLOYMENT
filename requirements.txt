@@ -1,0 +1,6 @@
+streamlit
+mysql-connector-python
+numpy
+langchain_ollama
+langchain_core
+scikit-learn

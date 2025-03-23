@@ -1,0 +1,62 @@
+/* ===== Fully Black Background (Chromatic Black) ===== */
+body, .stApp, .sidebar .sidebar-content {
+    background-color: #0a0a0a !important; /* Chromatic Black */
+    color: #00ff00 !important; /* Neon Green Text */
+}
+
+/* ===== Sidebar Fully Black ===== */
+.sidebar .sidebar-content {
+    background-color: #0a0a0a !important;
+    border-right: none !important; /* Removes outline */
+}
+
+/* ===== Normal Text (Paragraphs, Labels, General Content) in Green ===== */
+p, span, div, label, 
+.stTextInput textarea, 
+.stSelectbox div[data-baseweb="select"], 
+.stButton>button, 
+code, pre {
+    color: #00ff00 !important; /* Neon Green */
+}
+
+/* ===== Subtopics (h2, h3, h4, h5, h6) in Red (Fixed Glitch) ===== */
+.stMarkdown h2, .stMarkdown h3, .stMarkdown h4, 
+.stMarkdown h5, .stMarkdown h6,
+h2, h3, h4, h5, h6 {
+    color: #ff0000 !important; /* Forcefully Red */
+    font-weight: bold !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1px !important;
+    background-color: transparent !important; /* Prevent overlays */
+}
+
+/* ===== Buttons & Inputs Fully Black with Green Text ===== */
+.stButton>button, 
+.stTextInput textarea, 
+.stSelectbox div[data-baseweb="select"], 
+.stSelectbox option, 
+div[role="listbox"] div {
+    background-color: #0a0a0a !important; /* Full Black */
+    color: #00ff00 !important; /* Green Text */
+    border: none !important;
+}
+
+/* ===== Chat Messages Fully Black with Green Text ===== */
+.stChatMessage {
+    background-color: #0a0a0a !important;
+    color: #00ff00 !important;
+}
+
+/* ===== Code Blocks (Green Text on Black Background) ===== */
+code, pre {
+    background-color: #0a0a0a !important; /* Black */
+    color: #00ff00 !important; /* Green */
+    border-radius: 5px;
+    padding: 10px;
+}
+
+/* ===== Remove All Unwanted Borders and Outlines ===== */
+* {
+    outline: none !important;
+    box-shadow: none !important;
+}
