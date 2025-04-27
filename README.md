@@ -1,4 +1,4 @@
-# Portable AI Server with Ollama - RAG Enhanced
+# ADVANCED GENERATIVE AI SERVER FOR EFFICIENT AI DEPLOYMENT 
 
 ***Developed by: PHILIP SIMON DEROCK P***
 
